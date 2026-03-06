@@ -1,0 +1,9 @@
+com/jiparo_1/jiparo/servlets/EmpleadoServlet.class
+com/jiparo_1/jiparo/JakartaRestConfiguration.class
+com/jiparo_1/jiparo/resources/JakartaEE10Resource.class
+com/jiparo_1/jiparo/servlets/SvUsuarios.class
+com/jiparo_1/jiparo/dao/EmpleadoDAO.class
+com/jiparo_1/jiparo/dao/UsuarioDAO.class
+com/jiparo_1/jiparo/logica/Usuario.class
+com/jiparo_1/jiparo/servlets/LoginServlet.class
+com/jiparo_1/jiparo/logica/Empleado.class

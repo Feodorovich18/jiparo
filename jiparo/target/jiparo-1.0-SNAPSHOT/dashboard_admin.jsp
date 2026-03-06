@@ -1,0 +1,382 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JIPARO CONSULTORES</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex">
+
+
+<!-----------NAVBAR-------------------------------------------------------------------------------------------------------------------->
+<aside class="w-72 bg-slate-900 text-slate-300 flex flex-col h-screen">
+  <div class="px-8 py-6 border-b border-slate-800">
+    <h2 class="text-2xl font-bold text-white tracking-tight">JIPARO</h2>
+    <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Panel Administrativo</p></div>
+
+    <nav class="flex-1 px-6 py-6 space-y-8 text-sm">
+    <div><p class="text-xs text-slate-500 uppercase tracking-widest mb-4">General</p>
+
+      <div class="space-y-2">
+        <a href="dashboard.html"class="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-white font-medium"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24"  stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3"/></svg>
+          INICIO
+        </a>
+
+        <a href="altausuario.html"class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition">
+          <svg xmlns="http://www.w3.org/2000/svg"class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M17 20h5V4H2v16h5m10 0v-8H7v8m10 0H7"/></svg>
+          USUARIOS
+        </a>
+
+      </div>
+    </div>
+    <div><p class="text-xs text-slate-500 uppercase tracking-widest mb-4">Operaciones</p>
+      
+      <div class="space-y-2">
+        <a href="contabilidad.html"class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400"fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M9 17v-2a4 4 0 014-4h4"/></svg>
+          Contabilidad
+        </a>
+
+        <a href="nomina.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition">
+          <svg xmlns="http://www.w3.org/2000/svg"class="w-5 h-5 text-slate-400"fill="none"viewBox="0 0 24 24"stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M8 7V3m8 4V3m-9 8h10m-11 9h12"/>
+          </svg>
+          Nómina
+        </a>
+
+        <a href="inventario.html"class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition">
+          <svg xmlns="http://www.w3.org/2000/svg"class="w-5 h-5 text-slate-400"fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 00-2-2h-4l-2-2H6a2 2 0 00-2 2v6"/>
+          </svg>
+          Inventario
+        </a>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="px-6 py-6 border-t border-slate-800">
+
+    <div class="mb-4">
+      <p class="text-sm font-medium text-white">Usuario</p>
+      <p class="text-xs text-slate-400">Administrador</p>
+    </div>
+
+    <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-medium transition shadow-lg shadow-red-900/20">
+      Cerrar sesión
+    </button>
+  </div>
+</aside>
+<!------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+<main class="flex-1 p-10" x-data="{ openModal: false }">
+  <div class="flex justify-between items-center mb-10">
+    <div><h1 class="text-3xl font-bold text-slate-800">Usuarios</h1>
+      <p class="text-slate-500 text-sm mt-1">Bienvenido, Administrador "lugar donde concetar en vivo"</p>
+    </div>
+
+    <button @click="openModal = true"class="bg-slate-800 text-white px-6 py-3 rounded-xl shadow-md hover:bg-indigo-700 transition font-medium">
+      Nuevo Usuario
+    </button>
+  </div>
+  
+  
+  <div x-data="{openEdit: false, openPrograms: false }" class="bg-white rounded-2xl shadow-sm border border-slate-200">
+  <div class="overflow-x-auto">
+    <table class="w-full text-left">
+      <thead class="bg-slate-50 text-slate-600 text-sm uppercase tracking-wider">
+        <tr>
+          <th class="py-4 px-6">Nombre</th>
+          <th>Email</th>
+          <th>Licencias Activas</th><!--EN VIVO-->
+          <th>Rol</th><!--EN VIVO-->
+          <th>Estatus</th>
+          <th class="text-right pr-6">Acciones</th>
+        </tr>
+      </thead>
+
+      <!--ejemplo-->
+
+      <tbody class="text-slate-700">
+        <tr class="border-t hover:bg-slate-50 transition">
+          <td class="py-4 px-6 font-medium">Juan Pérez</td>
+          <td>juan@email.com</td>
+          <td>
+            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 text-xs font-semibold rounded-full">
+              2
+            </span>
+          </td>
+          <td class="text-indigo-600 font-semibold">ADMIN</td>
+          <td>
+            <span class="px-3 py-1 bg-green-100 text-green-600 text-xs font-semibold rounded-full">
+              Activo
+            </span>
+          </td>
+      <!-------------------------------------------------------------->
+
+          <td class="text-right pr-6 space-x-2">
+
+            <!-- EDITAR USUARIO -->
+            <button @click="openEdit = true"class="px-4 py-2 text-sm bg-slate-800 text-white rounded-lg hover:bg-slate-600 transition">Editar</button>
+
+            <!-- MODIFICAR PROGRAMAS -->
+            <button @click="openPrograms = true"class="px-4 py-2 text-sm bg-slate-800 text-white rounded-lg hover:bg-slate-600 transition"> Programas </button>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+ 
+  <div x-show="openEdit"class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"x-transition>
+    <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl p-10 relative max-h-[95vh] overflow-y-auto">
+
+      <button @click="openEdit = false"class="absolute top-6 right-6 text-slate-400 hover:text-red-600 text-xl">✕</button>
+      <h2 class="text-2xl font-semibold text-slate-800 mb-8">Editar Usuario</h2>
+
+      <form class="space-y-8">
+        <div><h3 class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-6">Información General</h3>
+
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Nombre</label>
+              <input type="text"  placeholder="Nuevo nombre" class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Email</label>
+              <input type="email" placeholder="Nuevo Email"class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            </div>
+
+          </div>
+        </div>
+
+        <div><h3 class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-6">Permisos y Rol</h3>
+
+          <div class="grid grid-cols-3 gap-6">
+            <div><label class="block text-sm font-medium text-slate-600 mb-1">Rol</label>
+              <select class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                <option>ADMIN</option>
+                <option>USER</option>
+              </select>
+            </div>
+
+            <div><label class="block text-sm font-medium text-slate-600 mb-1">Licencias Activas</label>
+              <input type="number" value="2"class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            </div>
+
+            <div><label class="block text-sm font-medium text-slate-600 mb-1">Estatus</label>
+              <select class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                <option>Activo</option>
+                <option>Inactivo</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-4 pt-6 border-t">
+          <button type="button"@click="openEdit = false"class="px-6 py-3 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 transition">
+            Cancelar
+          </button>
+
+          <button type="submit"class="bg-slate-800 text-white px-8 py-3 rounded-xl hover:bg-slate-600 transition font-semibold shadow-md">
+            Guardar Cambios
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div x-show="openPrograms" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"x-transition>
+    <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl p-10 relative max-h-[95vh] overflow-y-auto">
+
+      <button @click="openPrograms = false"class="absolute top-6 right-6 text-slate-400 hover:text-red-600 text-xl">✕</button>
+
+      <h2 class="text-2xl font-semibold text-slate-800 mb-8">Modificar Programas</h2>
+
+      <div class="grid grid-cols-3 gap-6">
+
+        <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-slate-50 transition cursor-pointer">
+          <input type="checkbox" class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+          <span class="text-sm font-medium text-slate-700">Contabilidad</span>
+        </label>
+
+        <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-slate-50 transition cursor-pointer">
+          <input type="checkbox" class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+          <span class="text-sm font-medium text-slate-700">Nómina</span>
+        </label>
+
+        <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-slate-50 transition cursor-pointer">
+          <input type="checkbox" class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+          <span class="text-sm font-medium text-slate-700">Inventario</span>
+        </label>
+
+        <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-slate-50 transition cursor-pointer">
+          <input type="checkbox" class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+          <span class="text-sm font-medium text-slate-700">Facturación</span>
+        </label>
+
+        <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-slate-50 transition cursor-pointer">
+          <input type="checkbox"class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+          <span class="text-sm font-medium text-slate-700">Reportes</span>
+        </label>
+
+        <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-slate-50 transition cursor-pointer">
+          <input type="checkbox"class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+          <span class="text-sm font-medium text-slate-700">Administración</span>
+        </label>
+      </div>
+
+      <div class="flex justify-end gap-4 pt-8 border-t mt-8">
+        <button @click="openPrograms = false"class="px-6 py-3 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 transition">Cancelar</button>
+
+        <button class="bg-slate-800 text-white px-8 py-3 rounded-xl hover:bg-slate-600 transition font-semibold">Guardar Programas</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <div x-show="openModal"class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center" x-transition>
+    <div class="bg-white w-full max-w-5xl rounded-2xl shadow-2xl p-10 relative max-h-[95vh] overflow-y-auto">
+      <button @click="openModal = false"class="absolute top-6 right-6 text-slate-400 hover:text-red-600 text-xl">✕</button>
+
+      <h2 class="text-2xl font-semibold text-slate-800 mb-8">Registro de Nuevo Usuario</h2>
+
+      <form class="space-y-10 action="UsuarioServlet" method="POST">
+        <div><h3 class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-6">Información Personal</h3>
+
+          <div class="grid grid-cols-3 gap-6">
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Nombre</label>
+              <input type="text"class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                     name="nombre">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Apellido Paterno</label>
+              <input type="text"class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                     name="apellido_paterno">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Apellido Materno</label>
+              <input type="text" class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800focus:outline-none"
+                     name="apellido_materno">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Email</label>
+              <input type="email" class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                     name="email">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Teléfono</label>
+              <input type="text"class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                     name="telefono">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Fecha de Ingreso</label>
+              <input type="date" class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                     name="fecha_ingreso">
+            </div>
+
+          </div>
+        </div>
+
+        
+        <div><h3 class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-6">Programas</h3>
+          
+          <div class="grid grid-cols-3 gap-6">
+            <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-600 hover:bg-slate-50 transition">
+            <input type="checkbox"class="w-5 h-5 text-indigo-600 border-slate-3000 rounded focus:ring-indigo-500" name="contabilidad">
+            <span class="text-sm font-medium text-slate-700">Contabilidad</span>
+            </label>
+
+            <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-600 hover:bg-slate-50 transition">
+            <input type="checkbox"class="w-5 h-5 text-indigo-600 border-slate-3000 rounded focus:ring-indigo-500" name="nomina">
+            <span class="text-sm font-medium text-slate-700">Nomina</span>
+            </label>
+
+            <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-600 hover:bg-slate-50 transition">
+            <input type="checkbox"class="w-5 h-5 text-indigo-600 border-slate-3000 rounded focus:ring-indigo-500" name="inventario">
+            <span class="text-sm font-medium text-slate-700">Inventario</span>
+            </label>
+
+            <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-600 hover:bg-slate-50 transition">
+            <input type="checkbox"class="w-5 h-5 text-indigo-600 border-slate-3000 rounded focus:ring-indigo-500" name="facturacion">
+            <span class="text-sm font-medium text-slate-700">Facturación</span>
+            </label>
+
+             <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-600 hover:bg-slate-50 transition">
+            <input type="checkbox"class="w-5 h-5 text-indigo-600 border-slate-3000 rounded focus:ring-indigo-500" name="reportes">
+            <span class="text-sm font-medium text-slate-700">Reportes</span>
+            </label>
+
+             <label class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-600 hover:bg-slate-50 transition">
+            <input type="checkbox"class="w-5 h-5 text-indigo-600 border-slate-3000 rounded focus:ring-indigo-500" name="administracion">
+            <span class="text-sm font-medium text-slate-700">Administración</span>
+            </label>
+          </div>
+        </div>
+
+    
+        <div>
+          <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-6">Credenciales del Sistema</h3>
+
+          <div class="grid grid-cols-3 gap-6">
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Usuario</label>
+              <input type="text"class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                     name="username">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Password</label>
+              <input type="password"class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                     name="password">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1">Rol</label>
+              <select class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:outline-none bg-white">
+                <option value="">Seleccionar Rol</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="USER">USER</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-4 pt-6 border-t">
+          <button type="button"@click="openModal = false"class="px-6 py-3 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 transition">
+            Cancelar
+          </button>
+
+          <button type="submit"class="bg-slate-800 text-white px-8 py-3 rounded-xl hover:bg-slate-600 transition font-semibold shadow-md">
+            Guardar Usuario
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
