@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Contable</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+
+
+<body class="bg-gray-100 font-sans">
+
+<div class="flex min-h-screen">
+
+
+    <!-- ============================= -->
+    <!-- SIDEBAR -->
+    <!-- ============================= -->
+
+    <aside class="w-64 bg-gradient-to-b from-slate-900 to-slate-950 text-white flex flex-col justify-between">
+
+        <div>
+
+            <div class="p-6 border-b border-slate-800">
+                <h1 class="text-2xl font-bold">JIPARO</h1>
+                <p class="text-xs text-slate-400">PANEL ADMINISTRATIVO</p>
+            </div>
+
+            <nav class="p-5 text-sm space-y-6">
+
+                <div>
+                    <p class="text-xs text-slate-400 tracking-widest mb-3">GENERAL</p>
+
+                    <div class="space-y-2">
+
+                        <a href="#" class="flex items-center gap-3 p-3 rounded-lg bg-slate-800">
+                            <i class="fa-solid fa-house text-blue-400"></i>
+                            <span>INICIO</span>
+                        </a>
+
+                        <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800">
+                            <i class="fa-regular fa-id-badge"></i>
+                            <span>USUARIOS</span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div>
+
+                    <p class="text-xs text-slate-400 tracking-widest mb-3">OPERACIONES</p>
+
+                    <div class="space-y-2">
+
+                        <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Contabilidad</span>
+                        </a>
+
+                        <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <span>Nómina</span>
+                        </a>
+
+                        <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                            <span>Inventario</span>
+                        </a>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+
+        <div class="p-5 border-t border-slate-800">
+
+            <p class="text-xs text-slate-400">Usuario</p>
+            <p class="font-semibold mb-4">Administrador</p>
+
+            <button class="w-full bg-red-600 hover:bg-red-700 transition p-2 rounded-lg">Cerrar sesión</button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ============================= -->
+    <!-- CONTENIDO -->
+    <!-- ============================= -->
+
+    <main class="flex-1 p-10" x-data="{catalogoModal:false,crearCatalogo:false,usarCatalogo:false,vista:'principal',catalogoView:'menu',campos:['']}">
+
+        <!-- HEADER -->
+
+        <div class="flex justify-between items-center mb-10">
+
+            <h2 class="text-4xl font-bold text-gray-800">Nombre de la empresa</h2>
+
+            <div class="flex items-center gap-3">
+
+                <span class="text-gray-600">Nombre del cliente</span>
+
+                <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center">
+                    UR
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- VISTA PRINCIPAL (MODULOS CONTABLES) -->
+        <!-- ================================================= -->
+
+        <div x-show="vista === 'principal'" class="grid grid-cols-3 gap-8">
+
+
+            <!-- CATALOGOS -->
+
+            <div @click="catalogoModal = true"
+                 class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+
+                <h3 class="text-xl font-semibold">Catálogos</h3>
+                <p class="text-gray-500 mt-2">Administrar cuentas contables</p>
+
+            </div>
+
+
+            <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+                <h3 class="text-xl font-semibold">Pólizas</h3>
+                <p class="text-gray-500 mt-2">Registro de movimientos</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+                <h3 class="text-xl font-semibold">Reportes</h3>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+                <h3 class="text-xl font-semibold">Activos fijos</h3>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+                <h3 class="text-xl font-semibold">Control del IVA</h3>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+                <h3 class="text-xl font-semibold">Periodos</h3>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+                <h3 class="text-xl font-semibold">Impuestos</h3>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+                <h3 class="text-xl font-semibold">Contabilidad Electrónica</h3>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg cursor-pointer">
+                <h3 class="text-xl font-semibold">Configuraciones</h3>
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- VISTA CATALOGO DEFAULT -->
+        <!-- ================================================= -->
+
+        <!-- MENU CATALOGO -->
+
+        <div x-show="vista==='catalogo' && catalogoView==='menu'">
+
+            <div class="flex items-center mb-6">
+
+                <h2 class="text-2xl font-bold">
+                    Catálogo Contable
+                </h2>
+
+                <button
+                        @click="vista='principal'"
+                        class="ml-auto bg-gray-700 text-white px-4 py-2 rounded">
+
+                    ← Volver
+
+                </button>
+
+            </div>
+
+            <div class="grid grid-cols-3 gap-6">
+
+                <div
+                        @click="catalogoView='cuentas'"
+                        class="bg-white p-6 rounded-xl shadow hover:shadow-lg cursor-pointer">
+
+                    <h3 class="font-semibold">Cuentas</h3>
+
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow">
+                    Clientes
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow">
+                    Proveedores
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow">
+                    Productos
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow">
+                    Empleados
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow">
+                    AsoSAT
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ============================= -->
+        <!-- MODAL SELECCION CATALOGO -->
+        <!-- ============================= -->
+
+        <div
+                x-show="catalogoModal"
+                class="fixed inset-0 bg-black/40 flex items-center justify-center"
+                x-transition>
+
+            <div class="bg-white w-[500px] rounded-xl shadow-lg p-8">
+
+                <div class="flex justify-between mb-6">
+
+                    <h2 class="text-2xl font-bold">Catálogos Contables</h2>
+
+                    <button @click="catalogoModal=false">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                </div>
+
+
+                <div class="grid grid-cols-2 gap-6">
+
+                    <div
+                            @click="catalogoModal=false; crearCatalogo=true"
+                            class="border rounded-xl p-6 hover:shadow-md cursor-pointer">
+
+                        <div class="text-blue-600 text-3xl mb-3">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+
+                        <h3 class="font-semibold text-lg">Crear nuevo catálogo</h3>
+
+                        <p class="text-gray-500 text-sm mt-2">
+                            Crear un catálogo contable desde cero
+                        </p>
+
+                    </div>
+
+
+                    <div
+                            @click="catalogoModal=false; usarCatalogo=true"
+                            class="border rounded-xl p-6 hover:shadow-md cursor-pointer">
+
+                        <div class="text-green-600 text-3xl mb-3">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+
+                        <h3 class="font-semibold text-lg">Usar catálogo existente</h3>
+
+                        <p class="text-gray-500 text-sm mt-2">
+                            Seleccionar catálogo guardado
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ============================= -->
+        <!-- MODAL USAR CATALOGO -->
+        <!-- ============================= -->
+
+        <div
+                x-show="usarCatalogo"
+                class="fixed inset-0 bg-black/40 flex items-center justify-center"
+                x-transition>
+
+            <div class="bg-white w-[450px] rounded-xl shadow-lg p-8">
+
+                <div class="flex justify-between mb-6">
+
+                    <h2 class="text-xl font-bold">Catálogos existentes</h2>
+
+                    <button @click="usarCatalogo=false">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                </div>
+
+                <div class="space-y-3">
+
+                    <div
+                            @click="usarCatalogo=false; vista='catalogo'"
+                            class="border p-4 rounded-lg hover:bg-gray-50 cursor-pointer">
+
+                        Catálogo Default
+
+                    </div>
+
+                    <div
+                            class="border p-4 rounded-lg hover:bg-gray-50 cursor-pointer">
+
+                        Nombre del catalogo creado
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ============================= -->
+        <!-- MODAL CREAR CATALOGO -->
+        <!-- ============================= -->
+
+        <div
+                x-show="crearCatalogo"
+                class="fixed inset-0 bg-black/40 flex items-center justify-center"
+                x-transition>
+
+            <div class="bg-white w-[500px] max-h-[80vh] rounded-xl shadow-lg p-8 flex flex-col">
+
+                <div class="flex justify-between mb-6">
+
+                    <h2 class="text-xl font-bold">Crear catálogo contable</h2>
+
+                    <button @click="crearCatalogo=false">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                </div>
+
+
+                <form class="space-y-5">
+
+                    <!-- NOMBRE DEL CATALOGO -->
+
+                    <div>
+
+                        <label class="text-sm text-gray-600 font-medium">
+                            Nombre del catálogo
+                        </label>
+
+                        <input
+                                type="text"
+                                placeholder="Ejemplo: Catálogo 2026"
+                                class="w-full border p-2 rounded-lg mt-1">
+
+                    </div>
+
+                    <!-- CAMPOS DINAMICOS -->
+
+                    <div class="flex flex-col">
+
+                        <label class="text-sm text-gray-600 font-medium mb-2">
+                            Campos del catálogo
+                        </label>
+
+                        <!-- CONTENEDOR CON SCROLL -->
+
+                        <div class="max-h-60 overflow-y-auto pr-2 space-y-2 border rounded-lg p-3">
+
+                            <template x-for="(campo,index) in campos" :key="index">
+
+                                <div class="flex gap-3">
+
+                                    <select
+                                            x-model="campos[index]"
+                                            class="w-full border p-2 rounded-lg">
+
+                                        <option value="">Seleccionar campo</option>
+
+                                        <option>Cuenta</option>
+                                        <option>Subcuenta</option>
+                                        <option>Descripción</option>
+                                        <option>Tipo</option>
+                                        <option>Naturaleza</option>
+                                        <option>Nivel</option>
+                                        <option>Saldo Inicial</option>
+                                        <option>RFC</option>
+                                        <option>Clave SAT</option>
+
+                                    </select>
+
+                                    <button
+                                            type="button"
+                                            @click="campos.splice(index,1)"
+                                            class="bg-red-500 text-white px-3 rounded-lg">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+
+                        <!-- BOTON AGREGAR -->
+
+                        <button
+                                type="button"
+                                @click="campos.push('')"
+                                class="mt-3 bg-slate-700 text-white px-4 py-2 rounded-lg">
+
+                            Agregar campo
+
+                        </button>
+
+                    </div>
+
+                    <!-- BOTON CREAR -->
+
+                    <button type="button" @click="crearCatalogo=false;vista='catalogo'" class="w-full bg-blue-600 text-white p-2 rounded-lg mt-4">Crear catálogo</button>
+
+
+
+
+
+
+                </form>
+            </div>
+        </div>
+
+
+        <!-- =============================== -->
+        <!-- FORMULARIO CUENTAS -->
+        <!-- =============================== -->
+
+        <div x-show="catalogoView==='cuentas'">
+
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold">
+                    Crear / Editar Cuenta
+                </h2>
+
+                <button
+                        @click="catalogoView='menu'"
+                        class="bg-gray-700 text-white px-4 py-2 rounded">
+                    ← Volver
+                </button>
+
+
+
+            </div>
+
+            <form class="space-y-5">
+
+                <!-- CUENTA MAYOR -->
+                <div>
+                    <label class="text-sm text-gray-600 block mb-1">Cuenta Mayor</label>
+                    <div class="grid grid-cols-2 gap-4"><input type="text"placeholder="__.__.__"class="w-full border rounded-lg px-3 py-2">
+                        <input type="text"class="w-full border rounded-lg px-3 py-2">
+                    </div>
+                </div>
+
+                <!-- CUENTA -->
+
+                <div>
+                    <label class="text-sm text-gray-600">Cuenta</label>
+                    <input type="text"placeholder="__.__.__"class="w-full border rounded-lg px-3 py-2">
+                </div>
+
+
+                <!-- NOMBRE -->
+
+                <div>
+
+                    <label class="text-sm text-gray-600">
+                        Nombre
+                    </label>
+
+                    <input
+                            type="text"
+                            class="w-full border rounded-lg px-3 py-2">
+
+                </div>
+
+
+                <!-- TIPO Y MONEDA -->
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div>
+
+                        <label class="text-sm text-gray-600">
+                            Tipo
+                        </label>
+
+                        <select class="w-full border rounded-lg px-3 py-2">
+
+                            <option>Activo Deudora</option>
+                            <option>Activo Acreedora</option>
+                            <option>Pasivo</option>
+                            <option>Capital</option>
+                            <option>Ingreso</option>
+                            <option>Egreso</option>
+
+                        </select>
+
+                    </div>
+
+                    <div>
+
+                        <label class="text-sm text-gray-600">
+                            Moneda
+                        </label>
+
+                        <select class="w-full border rounded-lg px-3 py-2">
+
+                            <option>MXN</option>
+                            <option>USD</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NIVEL Y FECHA -->
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div>
+
+                        <label class="text-sm text-gray-600">
+                            Nivel
+                        </label>
+
+                        <input
+                                type="number"
+                                class="w-full border rounded-lg px-3 py-2">
+
+                    </div>
+
+                    <div>
+
+                        <label class="text-sm text-gray-600">
+                            Fecha
+                        </label>
+
+                        <input
+                                type="date"
+                                class="w-full border rounded-lg px-3 py-2">
+
+                    </div>
+
+                </div>
+
+
+                <!-- CODIGO AGRUPADOR -->
+
+                <div class="grid grid-cols-3 gap-4">
+
+                    <input
+                            type="text"
+                            placeholder="Código agrupador"
+                            class="border rounded-lg px-3 py-2">
+
+                    <input
+                            type="text"
+                            class="border rounded-lg px-3 py-2">
+
+                    <button
+                            type="button"
+                            class="border px-3 rounded-lg">
+                        ?
+                    </button>
+
+                </div>
+
+
+                <label class="flex items-center gap-2 text-sm">
+
+                    <input type="checkbox">
+
+                    Aplicar código a Sub-Cuentas
+
+                </label>
+
+
+                <!-- CODIGO SUBCUENTAS -->
+
+                <div class="grid grid-cols-3 gap-4">
+
+                    <input
+                            type="text"
+                            placeholder="Código SubCtas"
+                            class="border rounded-lg px-3 py-2">
+
+                    <input
+                            type="text"
+                            class="border rounded-lg px-3 py-2">
+
+                    <button
+                            type="button"
+                            class="border px-3 rounded-lg">
+                        ?
+                    </button>
+
+                </div>
+
+
+                <!-- GUARDAR -->
+
+                <div class="flex justify-end pt-4">
+
+                    <button @click="catalogoView='menu'"
+                            class="bg-blue-600 text-white px-6 py-2 rounded-lg">
+
+                        Guardar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+
+
+    </main>
+</div>
+</body>
+</html>

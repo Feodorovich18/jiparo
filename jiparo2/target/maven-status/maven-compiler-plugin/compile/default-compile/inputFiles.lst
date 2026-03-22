@@ -1,0 +1,12 @@
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/servlets/EmpresaServlet.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/model/Catalogo.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/model/Usuario.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/model/Cuenta.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/dao/CatalogoDAO.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/servlets/TestServlet.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/servlets/UsuarioServlet.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/model/Empresa.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/servlets/LoginUsuarioServlet.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/dao/CuentaDAO.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/dao/UsuarioDAO.java
+/home/isaac-villanueva/IdeaProjects/jiparo2/src/main/java/dao/EmpresaDAO.java
