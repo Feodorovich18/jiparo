@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:x-transition="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JIPARO CONSULTORES | Usuarios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        [x-cloak] {
+          display: none !important;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex">
+
+<!-- ======================= SIDEBAR MEJORADO ======================= -->
+<aside
+        class="w-72 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white flex flex-col justify-between shadow-2xl">
+    <div>
+        <!-- Header con efecto gradiente -->
+        <div class="p-6 border-b border-white/10 bg-gradient-to-r from-blue-600/10 to-transparent">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-chart-line text-sm"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">JIPARO</h1>
+                    <p class="text-[10px] text-slate-400 tracking-wider">PANEL ADMINISTRATIVO</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="p-4 text-sm space-y-6">
+            <!-- GENERAL -->
+            <div>
+                <p class="text-[11px] text-slate-500 font-semibold tracking-wider uppercase mb-3 px-3">General</p>
+                <div class="space-y-1">
+                    <a href="dashboard_admin.html"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 group">
+                        <i class="fa-solid fa-house w-5 group-hover:text-blue-300 transition"></i>
+                        <span class="font-medium">Inicio</span>
+                    </a>
+                    <a href="usuario.html"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-blue-600/20 to-blue-600/5 text-white border border-blue-500/20 group">
+                        <i class="fa-regular fa-id-badge w-5 text-blue-400"></i>
+                        <span class="font-medium">Usuarios</span>
+                        <span class="ml-auto text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full">12</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- OPERACIONES -->
+            <div>
+                <p class="text-[11px] text-slate-500 font-semibold tracking-wider uppercase mb-3 px-3">Operaciones</p>
+                <div class="space-y-1">
+                    <a href="contabilidad.html"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 group">
+                        <i class="fa-solid fa-chart-line w-5 group-hover:text-emerald-400 transition"></i>
+                        <span class="font-medium">Contabilidad</span>
+                    </a>
+                    <a href="nomina.html"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 group">
+                        <i class="fa-solid fa-money-bill-wave w-5 group-hover:text-blue-300 transition"></i>
+                        <span class="font-medium">Nómina</span>
+                    </a>
+                    <a href="inventario.html"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 group">
+                        <i class="fa-solid fa-boxes-stacked w-5 group-hover:text-blue-300 transition"></i>
+                        <span class="font-medium">Inventario</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Footer usuario mejorado -->
+    <div class="p-4 border-t border-white/10 bg-white/5">
+        <div class="flex items-center gap-3 mb-4 p-2 rounded-xl bg-white/5">
+            <div
+                    class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-user text-sm"></i>
+            </div>
+            <div class="flex-1">
+                <p class="text-sm font-semibold">Administrador</p>
+                <p class="text-[10px] text-slate-400">admin@jiparo.com</p>
+            </div>
+        </div>
+        <button
+                class="w-full flex items-center justify-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 hover:text-red-200 transition-all duration-200 p-2.5 rounded-xl border border-red-500/30">
+            <i class="fa-solid fa-right-from-bracket text-sm"></i>
+            <span class="font-medium">Cerrar sesión</span>
+        </button>
+    </div>
+</aside>
+
+<!-- ======================= MAIN CONTENT ======================= -->
+<main class="flex-1 p-8 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 overflow-y-auto" x-data="{openModal: false,openEdit: false,openPrograms: false,selectedUser: null}">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-white tracking-tight">Gestión de Usuarios</h1>
+            <p class="text-slate-400 text-sm mt-1">Bienvenido, Administrador · Conexión en vivo: <span
+                    class="text-emerald-400">● Online</span></p>
+        </div>
+        <button @click="openModal = true"
+                class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl flex items-center gap-2 transition-all duration-300 shadow-lg shadow-blue-500/20 font-medium">
+            <i class="fa-solid fa-user-plus"></i>
+            Nuevo Usuario
+        </button>
+    </div>
+
+    <!-- Panel de filtros -->
+    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20 shadow-lg">
+        <div class="flex flex-wrap gap-4 items-end">
+            <div class="flex-1 min-w-[200px]">
+                <label class="text-sm text-slate-300 block mb-2 font-medium">Buscar usuario</label>
+                <div class="relative">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" placeholder="Nombre, email, teléfono..."
+                           class="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                </div>
+            </div>
+            <div class="w-full md:w-48">
+                <label class="text-sm text-slate-300 block mb-2 font-medium">Rol</label>
+                <select
+                        class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <option class="bg-slate-900">Todos</option>
+                    <option class="bg-slate-900">ADMIN</option>
+                    <option class="bg-slate-900">USER</option>
+                </select>
+            </div>
+            <div class="w-full md:w-48">
+                <label class="text-sm text-slate-300 block mb-2 font-medium">Estatus</label>
+                <select
+                        class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <option class="bg-slate-900">Todos</option>
+                    <option class="bg-slate-900">Activo</option>
+                    <option class="bg-slate-900">Inactivo</option>
+                </select>
+            </div>
+            <button
+                    class="bg-blue-600/80 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl transition-all duration-200 flex items-center gap-2 shadow-lg shadow-blue-500/20">
+                <i class="fa-solid fa-filter text-sm"></i>
+                Filtrar
+            </button>
+        </div>
+    </div>
+
+    <!-- Tabla de usuarios -->
+    <div class="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-slate-800/50">
+                <tr class="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                    <th class="py-4 px-6">Usuario</th>
+                    <th class="py-4 px-6">Email</th>
+                    <th class="py-4 px-6">Licencias</th>
+                    <th class="py-4 px-6">Rol</th>
+                    <th class="py-4 px-6">Estatus</th>
+                    <th class="py-4 px-6 text-right">Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10">
+                <!-- Usuario 1 -->
+                <tr class="hover:bg-white/5 transition-colors duration-200">
+                    <td class="py-4 px-6">
+                        <div class="flex items-center gap-3">
+                            <div
+                                    class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+                                <i class="fa-solid fa-user text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-white">Juan Pérez</p>
+                                <p class="text-xs text-slate-400">ID: USR-001</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6 text-slate-300">juan@email.com</td>
+                    <td class="py-4 px-6">
+                <span
+                        class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/30">
+                  2 licencias
+                </span>
+                    </td>
+                    <td class="py-4 px-6">
+                <span
+                        class="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/30">ADMIN</span>
+                    </td>
+                    <td class="py-4 px-6">
+                <span
+                        class="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/30">Activo</span>
+                    </td>
+                    <td class="py-4 px-6 text-right">
+                        <div class="flex gap-2 justify-end">
+                            <button @click="openEdit = true"
+                                    class="p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-400/10 rounded-lg transition">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button @click="openPrograms = true"
+                                    class="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 rounded-lg transition">
+                                <i class="fa-solid fa-cube"></i>
+                            </button>
+                            <button class="p-2 text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-lg transition">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Usuario 2 -->
+                <tr class="hover:bg-white/5 transition-colors duration-200">
+                    <td class="py-4 px-6">
+                        <div class="flex items-center gap-3">
+                            <div
+                                    class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-xl flex items-center justify-center shadow-lg">
+                                <i class="fa-solid fa-user text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-white">María González</p>
+                                <p class="text-xs text-slate-400">ID: USR-002</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6 text-slate-300">maria@email.com</td>
+                    <td class="py-4 px-6">
+                <span
+                        class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/30">
+                  3 licencias
+                </span>
+                    </td>
+                    <td class="py-4 px-6">
+                <span
+                        class="px-3 py-1 bg-slate-500/20 text-slate-400 text-xs font-semibold rounded-full border border-slate-500/30">USER</span>
+                    </td>
+                    <td class="py-4 px-6">
+                <span
+                        class="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/30">Activo</span>
+                    </td>
+                    <td class="py-4 px-6 text-right">
+                        <div class="flex gap-2 justify-end">
+                            <button @click="openEdit = true"
+                                    class="p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-400/10 rounded-lg transition">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button @click="openPrograms = true"
+                                    class="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 rounded-lg transition">
+                                <i class="fa-solid fa-cube"></i>
+                            </button>
+                            <button class="p-2 text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-lg transition">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="bg-slate-800/30 px-6 py-4 flex items-center justify-between border-t border-white/10">
+            <p class="text-sm text-slate-400">Mostrando <span class="font-medium text-white">1</span> a <span
+                    class="font-medium text-white">2</span> de <span class="font-medium text-white">12</span> usuarios</p>
+            <nav class="flex gap-2">
+                <a href="#"
+                   class="px-3 py-2 rounded-lg bg-slate-800/50 border border-white/20 text-slate-300 hover:bg-slate-700/50 transition">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </a>
+                <a href="#" class="px-4 py-2 rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-500/20">1</a>
+                <a href="#"
+                   class="px-4 py-2 rounded-lg bg-slate-800/50 border border-white/20 text-slate-300 hover:bg-slate-700/50 transition">2</a>
+                <a href="#"
+                   class="px-4 py-2 rounded-lg bg-slate-800/50 border border-white/20 text-slate-300 hover:bg-slate-700/50 transition">3</a>
+                <a href="#"
+                   class="px-3 py-2 rounded-lg bg-slate-800/50 border border-white/20 text-slate-300 hover:bg-slate-700/50 transition">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ======================= MODAL NUEVO USUARIO ======================= -->
+    <div x-show="openModal" x-cloak
+         class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+         @click.away="openModal = false" x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+
+        <div
+                class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto border border-white/20"
+                x-transition:enter="transition ease-out duration-300" x-transition:enter-start="scale-95 opacity-0"
+                x-transition:enter-end="scale-100 opacity-100" x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="scale-100 opacity-100" x-transition:leave-end="scale-95 opacity-0">
+
+            <!-- Cabecera -->
+            <div
+                    class="sticky top-0 z-10 bg-gradient-to-r from-blue-600/20 to-transparent border-b border-white/10 px-6 py-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div
+                                class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-user-plus text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white tracking-tight">Registro de Nuevo Usuario</h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Completa todos los campos para crear un nuevo usuario</p>
+                        </div>
+                    </div>
+                    <button @click="openModal = false"
+                            class="text-slate-400 hover:text-white hover:bg-white/10 rounded-xl w-10 h-10 flex items-center justify-center transition-all duration-200">
+                        <i class="fa-solid fa-xmark text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <form class="p-6 space-y-8" id="form_crear_usuario">
+                <!-- Información Personal -->
+                <div>
+                    <h3 class="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-user"></i>
+                        Información Personal
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Nombre</label>
+                            <input type="text" placeholder="Nombre" id="nombre" name="nombre"
+                                   class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Apellido Paterno</label>
+                            <input type="text" placeholder="Apellido Paterno" id="apellido_paterno" name="apellido_paterno"
+                                   class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Apellido Materno</label>
+                            <input type="text" placeholder="Apellido Materno" id="apellido_materno" name="apellido_materno"
+                                   class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Email</label>
+                            <input type="email" placeholder="correo@empresa.com" id="email" name="email"
+                                   class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Teléfono</label>
+                            <input type="text" placeholder="+52 123 456 7890" id="telefono" name="telefono"
+                                   class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Fecha de Ingreso</label>
+                            <input type="date" id="fecha_ingreso" name="fecha_ingreso"
+                                   class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Programas -->
+                <div>
+                    <h3 class="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-cube"></i>
+                        Programas Asignados
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <label
+                                class="flex items-center gap-3 p-3 bg-slate-800/30 border border-white/10 rounded-xl hover:border-blue-500/50 hover:bg-blue-500/5 transition cursor-pointer">
+                            <input type="checkbox" id="activacion_contabilidad" name="activacion_contabilidad"
+                                   class="w-4 h-4 text-blue-600 bg-slate-800 border-white/20 rounded focus:ring-blue-500">
+                            <span class="text-sm text-slate-300">Contabilidad</span>
+                        </label>
+                        <label
+                                class="flex items-center gap-3 p-3 bg-slate-800/30 border border-white/10 rounded-xl hover:border-blue-500/50 hover:bg-blue-500/5 transition cursor-pointer">
+                            <input type="checkbox" id="activacion_nomina" name="activacion_nomina"
+                                   class="w-4 h-4 text-blue-600 bg-slate-800 border-white/20 rounded focus:ring-blue-500">
+                            <span class="text-sm text-slate-300">Nómina</span>
+                        </label>
+                        <label
+                                class="flex items-center gap-3 p-3 bg-slate-800/30 border border-white/10 rounded-xl hover:border-blue-500/50 hover:bg-blue-500/5 transition cursor-pointer">
+                            <input type="checkbox" id="activacion_inventario" name="activacion_inventario"
+                                   class="w-4 h-4 text-blue-600 bg-slate-800 border-white/20 rounded focus:ring-blue-500">
+                            <span class="text-sm text-slate-300">Inventario</span>
+                        </label>
+                        <label
+                                class="flex items-center gap-3 p-3 bg-slate-800/30 border border-white/10 rounded-xl hover:border-blue-500/50 hover:bg-blue-500/5 transition cursor-pointer">
+                            <input type="checkbox" id="activacion_facturacion" name="activacion_facturacion"
+                                   class="w-4 h-4 text-blue-600 bg-slate-800 border-white/20 rounded focus:ring-blue-500">
+                            <span class="text-sm text-slate-300">Facturación</span>
+                        </label>
+                        <label
+                                class="flex items-center gap-3 p-3 bg-slate-800/30 border border-white/10 rounded-xl hover:border-blue-500/50 hover:bg-blue-500/5 transition cursor-pointer">
+                            <input type="checkbox" id="activacion_reportes" name="activacion_reportes"
+                                   class="w-4 h-4 text-blue-600 bg-slate-800 border-white/20 rounded focus:ring-blue-500">
+                            <span class="text-sm text-slate-300">Reportes</span>
+                        </label>
+                        <label
+                                class="flex items-center gap-3 p-3 bg-slate-800/30 border border-white/10 rounded-xl hover:border-blue-500/50 hover:bg-blue-500/5 transition cursor-pointer">
+                            <input type="checkbox" id="activacion_administracion" name="activacion_administracion"
+                                   class="w-4 h-4 text-blue-600 bg-slate-800 border-white/20 rounded focus:ring-blue-500">
+                            <span class="text-sm text-slate-300">Administración</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Credenciales -->
+                <div>
+                    <h3 class="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-key"></i>
+                        Credenciales del Sistema
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Usuario</label>
+                            <input type="text" placeholder="usuario.jiparo" id="username" name="username"
+                                   class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Contraseña</label>
+                            <input type="password" placeholder="••••••••" id="password" name="password"
+                                   class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Rol</label>
+                            <select
+                                    class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50" id="rol">
+                                <option class="bg-slate-900">Seleccionar Rol</option>
+                                <option class="bg-slate-900" name="ADMIN">ADMIN</option>
+                                <option class="bg-slate-900" name="USER">USER</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-4 pt-6 border-t border-white/10">
+                    <button type="button" @click="openModal = false"
+                            class="px-6 py-3 rounded-xl border border-white/20 text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium">
+                        Cancelar
+                    </button>
+                    <button type="submit" id="btn_event"
+                            class="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/20 font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-save"></i>
+                        Guardar Usuario
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================= MODAL EDITAR USUARIO ======================= -->
+    <div x-show="openEdit" x-cloak
+         class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+         @click.away="openEdit = false" x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+
+        <div
+                class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-white/20"
+                x-transition:enter="transition ease-out duration-300" x-transition:enter-start="scale-95 opacity-0"
+                x-transition:enter-end="scale-100 opacity-100" x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="scale-100 opacity-100" x-transition:leave-end="scale-95 opacity-0">
+
+            <div
+                    class="sticky top-0 z-10 bg-gradient-to-r from-amber-600/20 to-transparent border-b border-white/10 px-6 py-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div
+                                class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-pen text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white tracking-tight">Editar Usuario</h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Modifica la información del usuario</p>
+                        </div>
+                    </div>
+                    <button @click="openEdit = false"
+                            class="text-slate-400 hover:text-white hover:bg-white/10 rounded-xl w-10 h-10 flex items-center justify-center transition-all duration-200">
+                        <i class="fa-solid fa-xmark text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <form class="p-6 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Nombre</label>
+                        <input type="text" value="Juan Pérez"
+                               class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Email</label>
+                        <input type="email" value="juan@email.com"
+                               class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Rol</label>
+                        <select
+                                class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                            <option class="bg-slate-900" selected>ADMIN</option>
+                            <option class="bg-slate-900">USER</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Licencias Activas</label>
+                        <input type="number" value="2"
+                               class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Estatus</label>
+                        <select
+                                class="w-full bg-slate-800/50 border border-white/20 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                            <option class="bg-slate-900" selected>Activo</option>
+                            <option class="bg-slate-900">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-4 pt-6 border-t border-white/10">
+                    <button type="button" @click="openEdit = false"
+                            class="px-6 py-3 rounded-xl border border-white/20 text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                            class="px-8 py-3 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white rounded-xl transition-all duration-200 shadow-lg shadow-amber-500/20 font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-save"></i>
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================= MODAL PROGRAMAS ======================= -->
+    <div x-show="openPrograms" x-cloak
+         class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+         @click.away="openPrograms = false" x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+
+        <div
+                class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-white/20"
+                x-transition:enter="transition ease-out duration-300" x-transition:enter-start="scale-95 opacity-0"
+                x-transition:enter-end="scale-100 opacity-100" x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="scale-100 opacity-100" x-transition:leave-end="scale-95 opacity-0">
+
+            <div
+                    class="sticky top-0 z-10 bg-gradient-to-r from-purple-600/20 to-transparent border-b border-white/10 px-6 py-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div
+                                class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-cube text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white tracking-tight">Modificar Programas</h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Asigna o remueve programas para este usuario</p>
+                        </div>
+                    </div>
+                    <button @click="openPrograms = false"
+                            class="text-slate-400 hover:text-white hover:bg-white/10 rounded-xl w-10 h-10 flex items-center justify-center transition-all duration-200">
+                        <i class="fa-solid fa-xmark text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <label
+                            class="flex items-center gap-3 p-4 bg-slate-800/30 border border-white/10 rounded-xl hover:border-purple-500/50 hover:bg-purple-500/5 transition cursor-pointer">
+                        <input type="checkbox" checked
+                               class="w-4 h-4 text-purple-600 bg-slate-800 border-white/20 rounded focus:ring-purple-500">
+                        <span class="text-sm font-medium text-slate-300">Contabilidad</span>
+                    </label>
+                    <label
+                            class="flex items-center gap-3 p-4 bg-slate-800/30 border border-white/10 rounded-xl hover:border-purple-500/50 hover:bg-purple-500/5 transition cursor-pointer">
+                        <input type="checkbox"
+                               class="w-4 h-4 text-purple-600 bg-slate-800 border-white/20 rounded focus:ring-purple-500">
+                        <span class="text-sm font-medium text-slate-300">Nómina</span>
+                    </label>
+                    <label
+                            class="flex items-center gap-3 p-4 bg-slate-800/30 border border-white/10 rounded-xl hover:border-purple-500/50 hover:bg-purple-500/5 transition cursor-pointer">
+                        <input type="checkbox"
+                               class="w-4 h-4 text-purple-600 bg-slate-800 border-white/20 rounded focus:ring-purple-500">
+                        <span class="text-sm font-medium text-slate-300">Inventario</span>
+                    </label>
+                    <label
+                            class="flex items-center gap-3 p-4 bg-slate-800/30 border border-white/10 rounded-xl hover:border-purple-500/50 hover:bg-purple-500/5 transition cursor-pointer">
+                        <input type="checkbox" checked
+                               class="w-4 h-4 text-purple-600 bg-slate-800 border-white/20 rounded focus:ring-purple-500">
+                        <span class="text-sm font-medium text-slate-300">Facturación</span>
+                    </label>
+                    <label
+                            class="flex items-center gap-3 p-4 bg-slate-800/30 border border-white/10 rounded-xl hover:border-purple-500/50 hover:bg-purple-500/5 transition cursor-pointer">
+                        <input type="checkbox"
+                               class="w-4 h-4 text-purple-600 bg-slate-800 border-white/20 rounded focus:ring-purple-500">
+                        <span class="text-sm font-medium text-slate-300">Reportes</span>
+                    </label>
+                    <label
+                            class="flex items-center gap-3 p-4 bg-slate-800/30 border border-white/10 rounded-xl hover:border-purple-500/50 hover:bg-purple-500/5 transition cursor-pointer">
+                        <input type="checkbox" checked
+                               class="w-4 h-4 text-purple-600 bg-slate-800 border-white/20 rounded focus:ring-purple-500">
+                        <span class="text-sm font-medium text-slate-300">Administración</span>
+                    </label>
+                </div>
+
+                <div class="flex justify-end gap-4 pt-8 mt-6 border-t border-white/10">
+                    <button @click="openPrograms = false"
+                            class="px-6 py-3 rounded-xl border border-white/20 text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium">
+                        Cancelar
+                    </button>
+                    <button
+                            class="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-xl transition-all duration-200 shadow-lg shadow-purple-500/20 font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-save"></i>
+                        Guardar Programas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="crear_usuario.js"></script>
+</body>
+
+</html>
