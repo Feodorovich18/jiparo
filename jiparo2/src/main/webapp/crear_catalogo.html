@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Contable - Catálogos Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'slide-up': 'slideUp 0.4s ease-out',
+                        'pulse-subtle': 'pulseSubtle 2s infinite',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseSubtle: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.7' },
+                        }
+                    }
+                }
+            }
+        }
+
+        function refreshPage() {
+            // Cambia '/tu-ruta-java' por la URL de tu Servlet o Controller
+            window.location.href = 'catalogos-crear.html';
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 antialiased" x-data="gestionCatalogo">
+        <div class="flex min-h-screen">
+
+        <aside
+                class="font-['Montserrat'] w-72 bg-gradient-to-br from-slate-900/95 via-blue-950/95 to-slate-900/95 text-white flex flex-col justify-between shadow-2xl border-r border-white/10">
+            <div>
+                <div class="p-6 border-b border-white/10 bg-gradient-to-r from-blue-600/20 to-transparent">
+                    <div class="flex items-center gap-3">
+                        <div
+                                class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg hover:shadow-blue-500/50 transition-shadow duration-300">
+                            <i class="fa-solid fa-chart-line text-lg"></i>
+                        </div>
+                        <div>
+                            <h1
+                                    class="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                                JIPARO</h1>
+                            <p class="text-[10px] text-slate-400 tracking-wider">PANEL ADMINISTRATIVO</p>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="p-4 text-sm space-y-6">
+                    <div>
+                        <p
+                                class="text-[11px] text-slate-500 font-semibold tracking-wider uppercase mb-3 px-3 flex items-center gap-2">
+                            <i class="fa-regular fa-circle-dot text-[8px] text-blue-400"></i> General
+                        </p>
+                        <div class="space-y-1">
+                            <a href="dashboard.html"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 group">
+                                <i class="fa-solid fa-house w-5 group-hover:text-emerald-300 transition"></i>
+                                <span class="font-medium">Inicio</span>
+                            </a>
+                            <a href="usuario.html"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 group">
+                                <i class="fa-regular fa-id-badge w-5 group-hover:text-amber-300 transition"></i>
+                                <span class="font-medium">Usuarios</span>
+                                <span
+                                        class="ml-auto text-[10px] bg-gradient-to-r from-blue-500/30 to-indigo-500/30 text-blue-300 px-2 py-0.5 rounded-full font-mono">12</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p
+                                class="text-[11px] text-slate-500 font-semibold tracking-wider uppercase mb-3 px-3 flex items-center gap-2">
+                            <i class="fa-regular fa-circle-dot text-[8px] text-indigo-400"></i> Operaciones
+                        </p>
+                        <div class="space-y-1">
+                            <a href="contabilidad.html"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-blue-600/30 to-indigo-600/20 text-white border border-blue-500/30 shadow-lg group relative">
+                                <i class="fa-solid fa-chart-line w-5 text-blue-400"></i>
+                                <span class="font-medium">Contabilidad</span>
+                                <i class="fa-solid fa-chevron-right ml-auto text-xs text-blue-400 animate-pulse"></i>
+                            </a>
+                            <a href="nomina.html"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 group">
+                                <i class="fa-solid fa-money-bill-wave w-5 group-hover:text-green-300 transition"></i>
+                                <span class="font-medium">Nómina</span>
+                            </a>
+                            <a href="inventario.html"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 group">
+                                <i class="fa-solid fa-boxes-stacked w-5 group-hover:text-purple-300 transition"></i>
+                                <span class="font-medium">Inventario</span>
+                            </a>
+                            <a href="inventario.html"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 group">
+                                <i class="fa-solid fa-building w-5 group-hover:text-red-300 transition"></i>
+                                <span class="font-medium">Opcion 4</span>
+                            </a>
+                            <a href="inventario.html"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 group">
+                                <i class="fa-solid fa-book w-5 group-hover:text-amber-300 transition"></i>
+                                <span class="font-medium">Opcion 5</span>
+                            </a>
+                            <a href="inventario.html"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 group">
+                                <i class="fa-solid fa-calendar w-5 group-hover:text-indigo-300 transition"></i>
+                                <span class="font-medium">Opcion 6 </span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="p-4 border-t border-white/10 bg-gradient-to-t from-white/5 to-transparent">
+                <div class="flex items-center gap-3 mb-4 p-2 rounded-xl bg-white/10">
+                    <div
+                            class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fa-solid fa-user text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-semibold">Administrador</p>
+                    </div>
+                </div>
+                <button
+                        class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 text-red-300 hover:text-red-200 transition-all duration-300 p-2.5 rounded-xl border border-red-500/30 group">
+                    <i class="fa-solid fa-right-from-bracket text-sm group-hover:translate-x-1 transition"></i>
+                    <span class="font-medium">Cerrar sesión</span>
+                </button>
+            </div>
+        </aside>
+        <!-- ============================= -->
+        <!-- CONTENIDO PRINCIPAL-->
+        <!-- ============================= -->
+        <main x-data="configuradorContable()"
+              class="flex-1 p-8 bg-gradient-to-br from-slate-900/50 via-blue-950/30 to-slate-900/50 overflow-y-auto animate-[slideUp_0.4s_ease-out]">
+            >
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center gap-4">
+                    <a href="catalogo.html"
+                       class="bg-white/10 hover:bg-white/20 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-6">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <div>
+                        <h1
+                                class="font-['Montserrat'] text-4xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                            <i class="fa-solid fa-layer-group text-blue-400"></i> Catálogos
+                        </h1>
+                        <p class="text-blue-200/70 mt-1 flex items-center gap-2">Gestión avanzada del catalogo
+                        </p>
+                    </div>
+                </div>
+                <!--===================BOTON REFRESCAR============================-->
+                <button onclick="refreshPage()"
+                        class="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white hover:bg-white/20 transition-all duration-300 group">
+                    <i
+                            class="fa-solid fa-rotate-right transition-transform duration-500 group-hover:rotate-180 text-blue-400"></i>
+                    <span class="text-sm font-medium">Refrescar</span>
+                </button>
+                <div class="flex items-center gap-3 bg-white/10 rounded-full px-4 py-2 border border-white/20">
+                    <i class="fa-regular fa-building text-blue-300"></i>
+                    <span class="text-white/90 font-medium">Corporativo JIPARO</span>
+                    <div
+                            class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-lg ml-2">
+                        <span class="font-bold">AD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent my-6"></div>
+
+            <!-- SECCIÓN 1: eSTRUCTURA -->
+            <div
+                    class="bg-gradient-to-r from-purple-900/30 to-indigo-900/30 rounded-2xl border border-purple-500/30 p-6 mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-diagram-project text-purple-400 text-xl"></i>
+                        </div>
+                        <h2 class="text-lg font-semibold text-white">Configuración de Niveles</h2>
+                    </div>
+                    <button @click="abrirModalEstructura()"
+                            class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-xl flex items-center gap-2 transition">
+                        <i class="fa-solid fa-gear"></i> Reestructurar
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-4 gap-4 text-center">
+                    <template x-for="(nivel, key) in estructuraCatalogo" :key="key">
+                        <div class="bg-white/10 rounded-xl p-3 border border-white/10">
+                            <p class="text-[10px] text-blue-300 uppercase font-bold" x-text="nivel.nombre"></p>
+                            <p class="text-2xl font-bold text-white" x-text="nivel.digitos"></p>
+                            <p class="text-[9px] text-purple-300/60 uppercase">Dígitos</p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mb-6">
+                <div class="bg-white/10 border border-white/10 rounded-xl px-4 py-2">
+                    <span class="text-2xl font-bold text-white" x-text="elementos.length"></span>
+                    <span class="text-xs text-blue-300 ml-1 uppercase">Registros</span>
+                </div>
+                <button @click="resetForm(); modalAbierto = true"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-lg transition">
+                    <i class="fa-solid fa-plus"></i> Nueva Cuenta
+                </button>
+            </div>
+
+            <div class="bg-slate-800/50 rounded-2xl overflow-hidden border border-white/10 shadow-xl">
+                <table class="min-w-full divide-y divide-white/10 text-sm">
+                    <thead class="bg-slate-900/80 text-blue-300 uppercase">
+                    <tr>
+                        <th class="px-6 py-4 text-left">Código</th>
+                        <th class="px-6 py-4 text-left">Denominación / Jerarquía</th>
+                        <th class="px-6 py-4 text-center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                    <template x-for="item in elementos" :key="item.id">
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="px-6 py-4">
+                                        <span
+                                                class="font-mono text-indigo-300 bg-indigo-900/30 px-2 py-1 rounded border border-indigo-500/20"
+                                                x-text="item.codigo"></span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-white font-medium uppercase" x-text="item.denominacion"></div>
+                                <div class="text-[10px] text-slate-500 mt-1" x-text="item.jerarquia"></div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <button @click="prepararEdicion(item)"
+                                        class="p-2 text-amber-400 hover:bg-blue-500/10 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button @click="eliminarElemento(item.id)"
+                                        class="text-red-400/50 hover:text-red-400 transition">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--===============MODAL NUEVO RUBRO===============================-->
+            <div x-show="modalAbierto" x-cloak
+                 class="fixed inset-0 bg-slate-950/60 backdrop-blur-[2px] flex items-center justify-center z-50 p-4">
+                <div
+                        class="bg-slate-900 rounded-3xl w-full max-w-4xl border border-white/10 shadow-2xl animate-slide-up overflow-hidden">
+                    <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/40">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-plus-circle text-blue-400 text-xl"></i>
+                            <h2 class="text-xl font-bold text-white uppercase">Nuevo Registro Contable</h2>
+                        </div>
+                        <button @click="modalAbierto = false"
+                                class="text-slate-500 hover:text-white text-2xl">&times;</button>
+                    </div>
+
+                    <form class="p-8 space-y-6" @submit.prevent="guardarElemento">
+                        <div class="grid grid-cols-1 gap-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+
+                            <div class="flex gap-4 items-end bg-blue-500/5 p-4 rounded-2xl border border-blue-500/10">
+                                <div class="w-24">
+                                    <label class="text-[10px] font-bold text-blue-400 uppercase mb-2 block"
+                                           x-text="estructuraCatalogo.nivel1.nombre"></label>
+                                    <input type="text" x-model="nuevoElemento.n1"
+                                           :maxlength="estructuraCatalogo.nivel1.digitos"
+                                           @input="soloNumeros($event, 'n1')"
+                                           class="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 text-center font-mono text-blue-400 outline-none text-lg">
+                                </div>
+                                <div class="flex-1">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase mb-2 block">Tipo de
+                                        Cuenta (Rubro)</label>
+                                    <select x-model="nuevoElemento.t1" @change="nuevoElemento.t2 = ''"
+                                            class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:border-blue-500">
+                                        <option value="">Seleccione tipo...</option>
+                                        <template x-for="(sub, cat) in categorias">
+                                            <option :value="cat" x-text="cat"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div
+                                    class="flex gap-4 items-end bg-emerald-500/5 p-4 rounded-2xl border border-emerald-500/10">
+                                <div class="w-24">
+                                    <label class="text-[10px] font-bold text-emerald-400 uppercase mb-2 block"
+                                           x-text="estructuraCatalogo.nivel2.nombre"></label>
+                                    <input type="text" x-model="nuevoElemento.n2"
+                                           :maxlength="estructuraCatalogo.nivel2.digitos"
+                                           @input="soloNumeros($event, 'n2')"
+                                           class="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 text-center font-mono text-emerald-400 outline-none text-lg">
+                                </div>
+                                <div class="flex-1">
+                                    <label
+                                            class="text-[10px] font-bold text-slate-500 uppercase mb-2 block">Clasificación
+                                        (Cuenta)</label>
+                                    <select x-model="nuevoElemento.t2" :disabled="!nuevoElemento.t1"
+                                            class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:border-emerald-500 disabled:opacity-30 transition-opacity">
+                                        <option value="">Seleccione clasificación...</option>
+                                        <template x-if="nuevoElemento.t1">
+                                            <template x-for="item in categorias[nuevoElemento.t1]">
+                                                <option :value="item" x-text="item"></option>
+                                            </template>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div
+                                    class="flex gap-4 items-end bg-indigo-500/5 p-4 rounded-2xl border border-indigo-500/10">
+                                <div class="w-24">
+                                    <label class="text-[10px] font-bold text-indigo-400 uppercase mb-2 block"
+                                           x-text="estructuraCatalogo.nivel3.nombre"></label>
+                                    <input type="text" x-model="nuevoElemento.n3"
+                                           :maxlength="estructuraCatalogo.nivel3.digitos"
+                                           @input="soloNumeros($event, 'n3')"
+                                           class="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 text-center font-mono text-indigo-400 outline-none text-lg">
+                                </div>
+                                <div class="flex-1">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase mb-2 block">Descripción
+                                        Subcuenta</label>
+                                    <input type="text" x-model="nuevoElemento.t3" placeholder="Ej. Bancos Nacionales"
+                                           class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:border-indigo-500">
+                                </div>
+                            </div>
+
+                            <div
+                                    class="flex gap-4 items-end bg-purple-500/5 p-4 rounded-2xl border border-purple-500/10">
+                                <div class="w-24">
+                                    <label class="text-[10px] font-bold text-purple-400 uppercase mb-2 block"
+                                           x-text="estructuraCatalogo.nivel4.nombre"></label>
+                                    <input type="text" x-model="nuevoElemento.n4"
+                                           :maxlength="estructuraCatalogo.nivel4.digitos"
+                                           @input="soloNumeros($event, 'n4')"
+                                           class="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 text-center font-mono text-purple-400 outline-none text-lg">
+                                </div>
+                                <div class="flex-1">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase mb-2 block">Nombre
+                                        Final de la Cuenta (Sub-Sub)</label>
+                                    <input type="text" x-model="nuevoElemento.t4" placeholder="Ej. Banamex Suc. 01"
+                                           class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:border-purple-500">
+                                </div>
+                            </div>
+
+                            <div class="border-t border-white/5 my-2"></div>
+                        </div>
+
+                        <div
+                                class="bg-indigo-900/20 border border-indigo-500/30 rounded-2xl p-6 flex items-center justify-between">
+                            <div>
+                                    <span
+                                            class="text-[10px] text-indigo-400 font-bold block uppercase mb-1">Previsualización
+                                        de Código:</span>
+                                <span class="text-3xl font-mono text-white font-black tracking-widest"
+                                      x-text="generarCodigoPreview()"></span>
+                            </div>
+                            <button type="submit"
+                                    class="bg-indigo-600 hover:bg-indigo-500 text-white px-10 py-4 rounded-2xl font-black transition-all shadow-xl shadow-indigo-900/40">
+                                <span x-text="esEdicion ? 'ACTUALIZAR CUENTA' : 'GUARDAR CUENTA'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div x-show="modalEstructuraAbierto" x-cloak
+                 class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center z-[60] p-4">
+
+                <div
+                        class="bg-slate-900 rounded-3xl w-full max-w-lg border border-red-500/20 shadow-2xl animate-slide-up">
+
+                    <div class="p-6 bg-red-600/10 border-b border-red-500/20 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                            <i class="fa-solid fa-triangle-exclamation text-red-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-white uppercase tracking-tight">Configurar Niveles</h2>
+                            <p class="text-[10px] text-red-400 font-bold uppercase">Define la longitud de cada segmento
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-8 space-y-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <template x-for="(nivel, key, index) in estructuraEdit" :key="key">
+                                <div class="flex items-center justify-between bg-white/5 p-4 rounded-2xl border border-white/5 hover:border-white/10 transition-colors"
+                                     :class="index === 0 ? 'opacity-60' : ''">
+                                    <div class="flex flex-col">
+                                        <span class="font-bold text-slate-200 text-sm" x-text="nivel.nombre"></span>
+                                        <span class="text-[10px] text-slate-500 uppercase tracking-widest"
+                                              x-text="index === 0 ? 'Fijo (Menú 1-9)' : 'Longitud de dígitos'"></span>
+                                    </div>
+
+                                    <div
+                                            class="flex items-center gap-3 bg-slate-950 rounded-xl p-1 border border-slate-800">
+                                        <input type="number" x-model.number="nivel.digitos"
+                                               @input="if(nivel.digitos > 9) nivel.digitos = 9; if(nivel.digitos < 1) nivel.digitos = 1"
+                                               :disabled="index === 0"
+                                               class="w-16 bg-transparent text-center font-black text-blue-400 outline-none text-lg disabled:text-slate-600">
+
+                                        <div class="flex flex-col pr-2" x-show="index !== 0">
+                                            <i class="fa-solid fa-chevron-up text-[8px] text-slate-600"></i>
+                                            <i class="fa-solid fa-chevron-down text-[8px] text-slate-600"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div class="bg-slate-800/50 rounded-xl p-4 border border-dashed border-slate-700 text-center">
+                                <span class="text-[10px] text-slate-500 font-bold uppercase block mb-1">Máscara
+                                    Resultante:</span>
+                            <code class="text-white font-mono tracking-[0.3em] text-lg"
+                                  x-text="Object.values(estructuraEdit).map(n => 'X'.repeat(n.digitos || 1)).join('-')">
+                            </code>
+                        </div>
+
+                        <div class="flex gap-4 pt-2">
+                            <button @click="modalEstructuraAbierto = false"
+                                    class="flex-1 py-4 text-slate-500 font-bold hover:text-white transition-colors uppercase text-xs tracking-widest">
+                                CANCELAR
+                            </button>
+                            <button @click="confirmarReestructuracion()"
+                                    class="flex-1 bg-red-600 hover:bg-red-500 text-white py-4 rounded-2xl font-black transition-all shadow-lg shadow-red-900/20 uppercase text-xs tracking-widest">
+                                APLICAR CAMBIOS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                document.addEventListener('alpine:init', () => {
+                    Alpine.data('gestionCatalogo', () => ({
+                        // --- ESTADOS ---
+                        modalAbierto: false,
+                        modalEstructuraAbierto: false,
+                        esEdicion: false,      // Agregado: para saber si estamos editando
+                        idEditando: null,      // Agregado: para saber qué ID actualizar
+
+                        estructuraCatalogo: {
+                            nivel1: { nombre: 'Rubro', digitos: 1 },
+                            nivel2: { nombre: 'Cuenta', digitos: 1 },
+                            nivel3: { nombre: 'SubCuenta', digitos: 2 },
+                            nivel4: { nombre: 'SubSubcuentas', digitos: 3 }
+                        },
+
+                        estructuraEdit: {},
+
+                        categorias: {
+                            'Activo': ['Activo Circulante', 'Activo Fijo', 'Activo Diferido'],
+                            'Pasivo': ['Pasivo a Corto Plazo', 'Pasivo a Largo Plazo'],
+                            'Capital': ['Capital Contribuido', 'Capital Ganado'],
+                            'Resultados': ['Ingresos', 'Costos', 'Gastos']
+                        },
+
+                        nuevoElemento: { n1: '', t1: '', n2: '', t2: '', n3: '', t3: '', n4: '', t4: '' },
+
+                        // Elemento de ejemplo con estructura de datos completa
+                        elementos: [
+                            {
+                                id: 1,
+                                codigo: '1-1-01-001',
+                                denominacion: 'Caja General',
+                                jerarquia: 'Activo > Activo Circulante > Cajas',
+                                datosOriginales: { n1: '1', t1: 'Activo', n2: '1', t2: 'Activo Circulante', n3: '01', t3: 'Cajas', n4: '001', t4: 'Caja General' }
+                            }
+                        ],
+
+                        // --- LÓGICA DE EDICIÓN ---
+                        prepararEdicion(item) {
+                            this.esEdicion = true;
+                            this.idEditando = item.id;
+                            // Clonamos los datos para no afectar la tabla mientras escribimos
+                            this.nuevoElemento = JSON.parse(JSON.stringify(item.datosOriginales));
+                            this.modalAbierto = true;
+                        },
+
+                        abrirModalEstructura() {
+                            this.estructuraEdit = JSON.parse(JSON.stringify(this.estructuraCatalogo));
+                            this.modalEstructuraAbierto = true;
+                        },
+
+                        confirmarReestructuracion() {
+                            this.estructuraCatalogo = JSON.parse(JSON.stringify(this.estructuraEdit));
+                            this.modalEstructuraAbierto = false;
+                            this.resetForm();
+                        },
+
+                        // --- MÉTODOS DE FORMULARIO ---
+                        soloNumeros(e, campo) {
+                            this.nuevoElemento[campo] = e.target.value.replace(/\D/g, '');
+                        },
+
+                        generarCodigoPreview() {
+                            const e = this.estructuraCatalogo;
+                            const n = this.nuevoElemento;
+                            // Convertimos a String antes de usar padStart para evitar errores
+                            const r1 = String(n.n1 || '').padStart(e.nivel1.digitos, '0');
+                            const r2 = String(n.n2 || '').padStart(e.nivel2.digitos, '0');
+                            const r3 = String(n.n3 || '').padStart(e.nivel3.digitos, '0');
+                            const r4 = String(n.n4 || '').padStart(e.nivel4.digitos, '0');
+                            return `${r1}-${r2}-${r3}-${r4}`;
+                        },
+
+                        guardarElemento() {
+                            const n = this.nuevoElemento;
+                            const e = this.estructuraCatalogo;
+
+                            // Validación manual rápida
+                            if (!n.n1 || !n.t4) {
+                                alert("Complete los campos obligatorios.");
+                                return;
+                            }
+
+                            const registro = {
+                                id: this.esEdicion ? this.idEditando : Date.now(),
+                                codigo: this.generarCodigoPreview(),
+                                denominacion: n.t4,
+                                jerarquia: `${n.t1} > ${n.t2} > ${n.t3}`,
+                                datosOriginales: JSON.parse(JSON.stringify(n)) // Guardamos copia para futura edición
+                            };
+
+                            if (this.esEdicion) {
+                                // Actualizar
+                                const index = this.elementos.findIndex(i => i.id === this.idEditando);
+                                this.elementos[index] = registro;
+                                this.modalAbierto = false; // Cerramos al editar
+                            } else {
+                                // Crear nuevo
+                                this.elementos.unshift(registro);
+                                // No cerramos el modal para permitir carga masiva rápida
+                            }
+
+                            this.resetForm();
+                        },
+
+                        resetForm() {
+                            this.nuevoElemento = { n1: '', t1: '', n2: '', t2: '', n3: '', t3: '', n4: '', t4: '' };
+                            this.esEdicion = false;
+                            this.idEditando = null;
+                        },
+
+                        eliminarElemento(id) {
+                            if (confirm("¿Estás seguro de eliminar este registro contable?")) {
+                                this.elementos = this.elementos.filter(item => item.id !== id);
+                            }
+                        },
+
+                        confirmarReestructuracion() {
+                            // 1. Guardamos la nueva estructura
+                            this.estructuraCatalogo = JSON.parse(JSON.stringify(this.estructuraEdit));
+                            const e = this.estructuraCatalogo;
+
+                            // 2. Mapeamos y actualizamos todos los registros existentes
+                            this.elementos = this.elementos.map(item => {
+                                const n = item.datosOriginales;
+
+                                // Regeneramos el código con los nuevos "paddings"
+                                const r1 = String(n.n1 || '').padStart(e.nivel1.digitos, '0');
+                                const r2 = String(n.n2 || '').padStart(e.nivel2.digitos, '0');
+                                const r3 = String(n.n3 || '').padStart(e.nivel3.digitos, '0');
+                                const r4 = String(n.n4 || '').padStart(e.nivel4.digitos, '0');
+
+                                return {
+                                    ...item,
+                                    codigo: `${r1}-${r2}-${r3}-${r4}`
+                                };
+                            });
+
+                            this.modalEstructuraAbierto = false;
+
+                            // Opcional: Feedback visual de que se actualizaron los registros
+                            console.log(`Se han reestructurado ${this.elementos.length} registros.`);
+                        },
+                    }));
+                });
+            </script>
+        </main>
+        </div>
+    </body>
+
+</html>
