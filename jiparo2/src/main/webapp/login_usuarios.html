@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Usuarios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-8px);
+            }
+
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        .animate-main {
+            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-step-1 {
+            animation: slideIn 0.6s ease-out 0.3s both;
+        }
+
+        .animate-step-2 {
+            animation: slideIn 0.6s ease-out 0.5s both;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .input-group-glass {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-group-glass:focus-within {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(148, 163, 184, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-error-active {
+            animation: shake 0.4s ease-in-out;
+            border-color: rgba(248, 113, 113, 0.4) !important;
+            background: rgba(248, 113, 113, 0.03) !important;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #f1f5f9;
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.2em;
+        }
+
+        .bg-mesh {
+            background-color: #020617;
+            background-image:
+                    radial-gradient(at 0% 0%, rgba(30, 41, 59, 0.8) 0, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(15, 23, 42, 1) 0, transparent 50%);
+        }
+
+        .input-error-active {
+            animation: shake 0.4s ease-in-out;
+            border-color: rgba(239, 68, 68, 0.5) !important;
+            background: rgba(239, 68, 68, 0.05) !important;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-mesh min-h-screen flex items-center justify-center px-6 overflow-hidden font-sans text-slate-200">
+
+<div class="absolute top-8 left-8 animate-step-1">
+    <a href="index.html"
+       class="btn-back px-5 py-2 rounded-full text-[10px] tracking-[0.2em] flex items-center gap-2 text-slate-500 uppercase font-bold group">
+        <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Regresar al Panel
+    </a>
+</div>
+
+<div
+        class="animate-main glass-card relative w-full max-w-4xl h-auto md:h-[600px] rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
+
+    <div class="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
+        <div class="animate-step-1 mb-10">
+            <h2 class="text-3xl font-light tracking-tight italic">Sistemas<span
+                    class="font-bold text-slate-100 not-italic">Pruebas</span></h2>
+            <p class="text-slate-500 text-[10px] mt-2 tracking-[0.3em] uppercase">Autenticación de usuarios</p>
+        </div>
+
+        <form id="login_form" novalidate class="space-y-6">
+            <div class="animate-step-2">
+                <div id="cont-user" class="input-group-glass px-5 py-3 group">
+                    <label for="username"
+                           class="block text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] group-focus-within:text-slate-300 transition-all">
+                        Usuario
+                    </label>
+                    <input type="text" id="username"
+                           class="w-full bg-transparent outline-none text-slate-100 text-sm mt-1 placeholder-slate-700"
+                           placeholder="juanperez">
+                </div>
+                <p class="text-red-400 text-[9px] mt-2 ml-2 opacity-0 transition-opacity duration-300"
+                   id="erroruser">✕ El usuario es requerido</p>
+            </div>
+
+            <div class="animate-step-2" style="animation-delay: 0.6s;">
+                <div id="cont-pass" class="input-group-glass px-5 py-3 group">
+                    <label for="password"
+                           class="block text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] group-focus-within:text-slate-300 transition-all">
+                        Password
+                    </label>
+                    <input type="password" id="password"
+                           class="w-full bg-transparent outline-none text-slate-100 text-sm mt-1 placeholder-slate-700"
+                           placeholder="••••••••">
+                </div>
+                <p class="text-red-400 text-[9px] mt-2 ml-2 opacity-0 transition-opacity duration-300"
+                   id="errorPassword">✕ La contraseña es requerida</p>
+            </div>
+
+            <div class="animate-step-2 pt-4" style="animation-delay: 0.7s;">
+                <button type="submit" id="btnEnviar"
+                        class="glass-button w-full py-4 rounded-2xl font-bold text-[10px] tracking-[0.15em] uppercase text-white shadow-xl active:scale-95">
+                    Ingresar al sistema
+                </button>
+
+                <div class="mt-8 flex justify-center opacity-20">
+                    <span class="text-[8px] tracking-[0.5em] font-mono uppercase">Conexion segura activa</span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="hidden md:flex w-1/2 relative bg-slate-900/40 items-center justify-center border-l border-white/5">
+        <div class="absolute w-80 h-80 bg-slate-500/10 rounded-full blur-[100px] -top-10"></div>
+
+        <div class="relative z-10 text-center px-10">
+            <div class="mb-8 inline-flex p-5 rounded-3xl glass-card border-slate-700/50">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                </svg>
+            </div>
+            <h1 class="text-6xl font-black text-white tracking-tighter opacity-80">
+                Sistemas<span class="font-thin text-slate-500">IJ</span>
+            </h1>
+            <p class="mt-4 text-slate-500 text-[30px] tracking-[0.5em] uppercase font-light">Contabilidad<BR>&<BR>Gestión</p>
+            <div class="mt-10 h-[1px] w-12 bg-slate-800 mx-auto"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /**
+     * Función para activar visualmente el error
+     * @param {string} field - Puede ser 'user' o 'pass'
+     */
+    function showError(field) {
+        // 1. Identificamos los elementos según el ID que pusimos en el HTML
+        const containerId = field === 'user' ? 'cont-user' : 'cont-pass';
+        const errorTextId = field === 'user' ? 'erroruser' : 'errorPassword';
+
+        const container = document.getElementById(containerId);
+        const errorText = document.getElementById(errorTextId);
+
+        // 2. Aplicamos la clase de sacudida y error
+        container.classList.add('input-error-active');
+
+        // 3. Mostramos el mensaje (quitamos la opacidad 0)
+        errorText.classList.replace('opacity-0', 'opacity-100');
+
+        // 4. Limpiamos la animación después de 400ms para que se pueda repetir si fallan de nuevo
+        setTimeout(() => {
+            container.classList.remove('input-error-active');
+        }, 400);
+    }
+
+    /**
+     * Función para limpiar el error cuando el usuario vuelva a escribir
+     */
+    function clearError(field) {
+        const errorTextId = field === 'user' ? 'erroruser' : 'errorPassword';
+        const errorText = document.getElementById(errorTextId);
+        errorText.classList.replace('opacity-100', 'opacity-0');
+    }
+
+    // EJEMPLO DE INTEGRACIÓN CON TU FORMULARIO
+    document.getElementById('login_form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Evita que la página se recargue
+
+        const userVal = document.getElementById('username').value;
+        const passVal = document.getElementById('password').value;
+
+        // Validación simple (Aquí iría tu conexión a la DB)
+        if (userVal === "") {
+            showError('user');
+        }
+
+        if (passVal === "") {
+            showError('pass');
+        }
+    });
+
+    // Limpiar el error mientras el usuario escribe
+    document.getElementById('username').addEventListener('input', () => clearError('user'));
+    document.getElementById('password').addEventListener('input', () => clearError('pass'));
+</script>
+
+<script src="login_usuarios.js"></script>
+</body>
+</html>
